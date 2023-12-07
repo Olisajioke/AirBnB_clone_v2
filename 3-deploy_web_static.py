@@ -40,15 +40,15 @@ def do_deploy(archive_path):
     try:
         f_n = archive_path.split("/")[-1]
         flda_n = f_n.split(".")[0]
-        my_path = "/data/web_static/releases/"
+        path = "/data/web_static/releases/"
         put(archive_path, '/tmp/')
-        run('mkdir -p {}{}/'.format(my_path, flda_n))
-        run('tar -xzf /tmp/{} -C {}{}/'.format(f_n, my_path, flda_n))
-        run('rm /tmp/{}'.format(f_n))
-        run('mv {0}{1}/web_static/* {0}{1}/'.format(my_path, flda_n))
-        run('rm -rf {}{}/web_static'.format(my_path, flda_n))
-        run('rm -rf /data/web_static/current')
-        run('ln -s {}{}/ /data/web_static/current'.format(my_path, flda_n))
+        run('sudo mkdir -p {}{}/'.format(path, flda_n))
+        run('sudo tar -xzf /tmp/{} -C {}{}/'.format(f_n, path, flda_n))
+        run('sudo rm /tmp/{}'.format(f_n))
+        run('sudo mv {0}{1}/web_static/* {0}{1}/'.format(path, flda_n))
+        run('sudo rm -rf {}{}/web_static'.format(path, flda_n))
+        run('sudo rm -rf /data/web_static/current')
+        run('sudo ln -s {}{}/ /data/web_static/current'.format(path, flda_n))
         return True
     except IOError:
         return False
