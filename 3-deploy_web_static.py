@@ -1,9 +1,9 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 """
 Fabric script for deploying an archive to web servers
 """
 
-from fabric.api import env, local, put, run
+from fabric.api import env, put, run, local
 from datetime import datetime
 from os.path import exists, isdir
 
@@ -41,8 +41,8 @@ def do_deploy(archive_path):
         f_n = archive_path.split("/")[-1]
         flda_n = f_n.split(".")[0]
         path = "/data/web_static/releases/"
-        put(archive_path, '/tmp/')
         run('sudo mkdir -p {}{}/'.format(path, flda_n))
+        put(archive_path, '/tmp/')
         run('sudo tar -xzf /tmp/{} -C {}{}/'.format(f_n, path, flda_n))
         run('sudo rm /tmp/{}'.format(f_n))
         run('sudo mv {0}{1}/web_static/* {0}{1}/'.format(path, flda_n))
