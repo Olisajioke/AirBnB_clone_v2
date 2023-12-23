@@ -53,7 +53,7 @@ class FileStorage:
         """
 
         classes = {
-                'BaseModel': BaseModel, 'User': User,
+                    'BaseModel': BaseModel, 'User': User,
                     'State': State, 'City': City,
                     'Place': Place, 'Review': Review,
                     'Amenity': Amenity
@@ -73,3 +73,7 @@ class FileStorage:
         """
         if obj:
             del self.__objects["{}.{}".format(type(obj).__name__, obj.id)]
+
+    def close(self):
+        """Function that calls the reload method."""
+        self.reload()
