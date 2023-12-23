@@ -15,13 +15,13 @@ def hello_hbnb():
 
 
 @app.route('/hbnb', strict_slashes=False)
-def display_hbnb():
+def hbnb():
     """Displays 'HBNB'"""
     return 'HBNB'
 
 
 @app.route('/c/<text>', strict_slashes=False)
-def display_c_text(text):
+def c_is_cool(text):
     """Displays 'C ' followed by the value of the text variable."""
     return 'C {}'.format(escape(text).replace('_', ' '))
 
