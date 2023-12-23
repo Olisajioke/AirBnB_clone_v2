@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#/usr/bin/python3
 """
 This script starts a Flask web application with multiple routes.
 """
@@ -42,13 +42,13 @@ def display_number(n):
 @app.route('/number_template/<int:n>', strict_slashes=False)
 def display_number_template(n):
     """Displays an HTML page with 'No: n' inside an H1 tag if n is an int."""
-    return render_template('6-number.html', n=n)
+    return render_template('5-number.html', n=n)
 
 
 @app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
 def display_odd_or_even(n):
     """Displays an HTML page with 'No: n is even|odd"""
-    return render_template('5-number_odd_or_even.html', n=n)
+    return render_template('6-number_odd_or_even.html', n=n)
 
 
 if __name__ == '__main__':
