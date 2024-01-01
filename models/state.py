@@ -1,34 +1,34 @@
 #!/usr/bin/python3
-""" holds class State"""
-import models
+""" State Module for HBNB project"""
+from sqlalchemy.ext.declarative import declarative_base
 from models.base_model import BaseModel, Base
-from models.city import City
-from os import getenv
-import sqlalchemy
-from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
+from sqlalchemy import Column, Integer, String
+import models
+from models.city import City
+import shlex
 
 
 class State(BaseModel, Base):
-    """Representation of state """
-    if models.storage_t == "db":
-        __tablename__ = 'states'
-        name = Column(String(128), nullable=False)
-        cities = relationship("City", backref="state")
-    else:
-        name = ""
+    """This is the class for State."""
 
-    def __init__(self, *args, **kwargs):
-        """initializes state"""
-        super().__init__(*args, **kwargs)
+    __tablename__ = "states"
+    name = Column(String(128), nullable=False)
+    cities = relationship("City", cascade='all, delete, delete-orphan',
+                          backref="state")
 
-    if models.storage_t != "db":
-        @property
-        def cities(self):
-            """getter for list of city instances related to the state"""
-            city_list = []
-            all_cities = models.storage.all(City)
-            for city in all_cities.values():
-                if city.state_id == self.id:
-                    city_list.append(city)
-            return city_list
+    @property
+    def cities(self):
+        """Retrieve a list of associated City instances."""
+        variables = models.storage.all()
+        my_lists = []
+        my_sum = []
+        for values in variables:
+            city_info = values.replace('.', ' ')
+            city_info = shlex.split(city_info)
+            if city_info[0] == 'City':
+                my_lists.append(variables[values])
+        for my_elements in my_lists:
+            if my_elements.state_id == self.id:
+                my_sum.append(my_elements)
+        return my_sum
